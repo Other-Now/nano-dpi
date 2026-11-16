@@ -1,0 +1,8 @@
+feed malware: 1985 domains
+feed malware: 3 domains
+/home/chiku/dpi-data/nDPI/tests/cfgs/default/pcap/README.txt.in: not a pcap/pcapng file
+packets=136721 bytes=4142516956 not_ip=1057 truncated=14 fragments=1652 other_l4=2340 untracked=0
+flows_created=10321 flows_expired=4255 flows_reopened=19 peak_live_flows=6066 table_full_drops=0 table_slots=262144 flow_bytes=256 trace_seconds=11678818233.6
+l7: unknown=7567 HTTP=1206 TLS=916 DNS=504 QUIC=147 with_host=2611 quic_decrypt_ok=151 quic_decrypt_fail=2
+tcp_state_at_close: SYN_SENT=2248 SYN_RCVD=20 ESTABLISHED=2221 FIN_WAIT=75 LAST_ACK=46 TIME_WAIT=1314 CLOSE=385
+rules=8 tss_shapes=4 fw_evals=10955 drop_pkts=1230 drop_bytes=1016693 green=1128 yellow=0 red=0

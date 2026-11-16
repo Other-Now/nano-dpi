@@ -1,0 +1,16 @@
+# host: Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz, 4 vCPU, 6.18.33.2-microsoft-standard-WSL2
+== nDPI corpus, all files, reassembly on
+packets=136721 bytes=4142516956 not_ip=1057 truncated=14 fragments=1652 other_l4=2340 untracked=0
+l7: unknown=7567 HTTP=1206 TLS=916 DNS=504 QUIC=147 with_host=2611 quic_decrypt_ok=1510 quic_decrypt_fail=20
+bench packets=136721 reps=10 best_s=0.1170 median_s=0.1232 best_mpps=1.169 median_mpps=1.110 ns_per_pkt_median=901.3
+== nDPI corpus, reassembly off
+bench packets=136721 reps=10 best_s=0.1166 median_s=0.1228 best_mpps=1.173 median_mpps=1.113 ns_per_pkt_median=898.2
+== MAWI head, 2M slots, sweep every 1000 ms of trace time (0 = never)
+flows_created=715910 flows_expired=128804 flows_reopened=211 peak_live_flows=599921 table_full_drops=0 table_slots=2097152 flow_bytes=256 trace_seconds=36.7
+bench packets=5437823 reps=5 best_s=1.6507 median_s=1.9051 best_mpps=3.294 median_mpps=2.854 ns_per_pkt_median=350.3
+== MAWI head, 2M slots, sweep every 10000 ms of trace time (0 = never)
+flows_created=715564 flows_expired=9271 flows_reopened=212 peak_live_flows=706293 table_full_drops=0 table_slots=2097152 flow_bytes=256 trace_seconds=36.7
+bench packets=5437823 reps=5 best_s=1.4278 median_s=2.1872 best_mpps=3.808 median_mpps=2.486 ns_per_pkt_median=402.2
+== MAWI head, 2M slots, sweep every 0 ms of trace time (0 = never)
+flows_created=715435 flows_expired=0 flows_reopened=213 peak_live_flows=715435 table_full_drops=0 table_slots=2097152 flow_bytes=256 trace_seconds=36.7
+bench packets=5437823 reps=5 best_s=1.5773 median_s=2.1756 best_mpps=3.448 median_mpps=2.500 ns_per_pkt_median=400.1

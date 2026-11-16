@@ -1,0 +1,20 @@
+# nano-dpi example policy. First match wins; no match = allow.
+# src/sport = the client side of the flow, dst/dport = the server side.
+
+# policers: cir in bits/s, cbs/ebs in bytes (srTCM, RFC 2697), one bucket pair per subscriber
+policer video-cap cir=2m cbs=64k ebs=128k
+policer p2p-cap   cir=256k cbs=16k ebs=16k
+
+# content category from a threat feed (load with -C malware:feeds/urlhaus-filter.rpz)
+drop cat=malware
+
+# L3/L4: decided on the first packet of the flow
+drop dst=192.0.2.0/24
+drop proto=udp dport=1900
+drop proto=tcp dport=23
+
+# L7: decided once DPI has named the app (verdict is re-evaluated then)
+police=video-cap app=youtube
+police=video-cap app=netflix
+police=video-cap app=tiktok
+drop app=ads

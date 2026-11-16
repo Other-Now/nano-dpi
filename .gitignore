@@ -1,0 +1,9 @@
+build/
+build-asan/
+build-fuzz/
+crash-*
+leak-*
+timeout-*
+*.pcap
+*.pcapng
+__pycache__/

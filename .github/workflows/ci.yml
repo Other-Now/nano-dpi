@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: deps
+        run: sudo apt-get update && sudo apt-get install -y libssl-dev clang
+
+      - name: build (gcc, -Wall -Wextra)
+        run: make -j4 CFLAGS="-O2 -g -Werror"
+
+      - name: unit tests
+        run: ./build/test_nanodpi
+
+      - name: unit tests under ASan + UBSan
+        run: make asan && ASAN_OPTIONS=detect_leaks=1 ./build-asan/test_nanodpi
+
+      - name: fetch nDPI test corpus (pinned commit)
+        run: |
+          git clone -q --filter=blob:none --sparse https://github.com/ntop/nDPI.git ndpi
+          cd ndpi
+          git checkout -q 0bd6245bf10b2460efa90743b43621cf244df633
+          git sparse-checkout set tests/cfgs/default/pcap tests/cfgs/default/result
+
+      - name: whole corpus under ASan + UBSan (683 captures)
+        run: |
+          fails=0
+          for f in ndpi/tests/cfgs/default/pcap/*; do
+            UBSAN_OPTIONS=halt_on_error=1 ./build-asan/nanodpi "$f" > /dev/null 2> err.txt || { echo "FAIL $f"; cat err.txt; fails=$((fails+1)); }
+          done
+          echo "asan failures: $fails"; test $fails -eq 0
+
+      - name: compare with nDPI expected output
+        run: python3 scripts/compare_ndpi.py ndpi/tests/cfgs/default ./build/nanodpi results/ci
+
+      - name: example policy over the corpus
+        run: ./build/nanodpi -C malware:rules/demo-blocklist.txt -R rules/example.rules -o results/ci/policy_flows.csv ndpi/tests/cfgs/default/pcap/* 2>/dev/null | tee results/ci/policy_run.txt
+
+      - name: benchmarks (CI runner, noisy - for shape, not absolute numbers)
+        run: |
+          { echo "# $(lscpu | sed -n 's/Model name: *//p'), $(nproc) vCPU"
+            ./build/nanodpi -b 10 ndpi/tests/cfgs/default/pcap/* 2>/dev/null | grep -E '^bench|^packets'
+            ./build/nanodpi -n -b 10 ndpi/tests/cfgs/default/pcap/* 2>/dev/null | grep -E '^bench'; } | tee results/ci/throughput.txt
+          (./build/bench_rules 200000 broad; ./build/bench_rules 200000 acl | tail -n +2) | tee results/ci/bench_rules.csv
+          ./build/bench_policer | tee results/ci/bench_policer.csv
+
+      - name: libFuzzer, 60 s
+        run: |
+          make fuzz
+          mkdir -p corpus && cp ndpi/tests/cfgs/default/pcap/*.pcap corpus/ 2>/dev/null || true
+          ./build-fuzz/fuzz_engine -max_total_time=60 -max_len=4096 -rss_limit_mb=2048 corpus 2>&1 | tail -5 | tee results/ci/fuzz.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: results/ci

@@ -1,0 +1,7 @@
+# DEMO LIST - not threat intelligence.
+# Hostnames picked from captures in the nDPI test corpus so that CI exercises
+# the "category from a feed -> drop" path. For a real feed use e.g. the URLhaus
+# RPZ zone:  -C malware:feeds/urlhaus-filter.rpz  (same loader, RPZ syntax).
+1kxun.mobi
+rayjump.com
+startappservice.com
