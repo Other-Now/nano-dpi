@@ -1,6 +1,6 @@
 CC      ?= gcc
 CFLAGS  ?= -O2 -g
-CFLAGS  += -std=c11 -D_DEFAULT_SOURCE -Wall -Wextra -Wshadow -Iinclude
+override CFLAGS += -std=c11 -D_DEFAULT_SOURCE -Wall -Wextra -Wshadow -Iinclude
 LDLIBS  += -lcrypto -lm
 
 SRC  := src/pcapio.c src/pkt.c src/reasm.c src/flow.c src/dpi.c src/quic.c \
