@@ -1,0 +1,17 @@
+pcap,flow,ndpi_l7,host,dpi_pkts_with_reasm,no_reasm_outcome
+1kxun.pcap,TCP 192.168.2.126:37100 52.29.177.177:80,HTTP,adx-tk.rayjump.com,3,no_host
+1kxun.pcap,TCP 192.168.2.126:42566 35.156.44.13:80,HTTP,de01.rayjump.com,3,no_host
+crawler_false_positive.pcapng,TCP 192.168.12.156:38291 93.184.220.29:80,HTTP,ocsp.digicert.com,2,no_host
+dns_tcp_other_ip.pcap,TCP 10.21.208.15:53 10.61.20.100:50060,DNS,0-prod-dynamite-prod-00-us-signaler-pa.clients6.google.com,2,no_host
+dns_tcp_other_ip.pcap,TCP [2001:b07:a3d:c112::1]:53 [2001:b07:a3d:c112:bd13:1b8b:e5a6:c1e4]:49713,DNS,ocws.officeapps.live.com,2,no_host
+dofus.pcap,TCP 10.215.173.1:42784 54.246.120.81:443,TLS,event-mediator.dofus-touch.com,2,no_host
+fp_tls_chrome154_macos.pcapng,TCP 116.203.142.127:443 192.168.1.29:50012,TLS,www.ntop.org,2,no_host
+http_ua_splitted_in_two_pkts.pcapng,TCP 254.125.135.128:21359 66.152.103.45:80,HTTP,va.origin.startappservice.com,2,no_host
+ja4.pcapng,TCP 116.203.142.127:443 192.168.1.29:59831,TLS,www.ntop.org,2,no_host
+ja4.pcapng,TCP 116.203.142.127:443 192.168.1.29:59837,TLS,www.ntop.org,2,no_host
+sites3.pcapng,TCP 172.67.42.21:443 192.168.43.159:19191,TLS,cloud.boosteroid.com,2,no_host
+sites3.pcapng,TCP 192.168.43.159:19127 52.215.125.151:443,TLS,www.blacknut.com,2,no_host
+www.ntop.org_opera135_macos26_client_hello.pcapng,TCP 116.203.142.127:443 192.168.1.29:49627,TLS,www.ntop.org,2,no_host
+www.ntop.org_opera135_macos26_client_hello.pcapng,TCP 116.203.142.127:443 192.168.1.29:49628,TLS,www.ntop.org,2,no_host
+www.ntop.org_opera135_macos26_client_hello.pcapng,TCP 116.203.142.127:443 192.168.1.29:49631,TLS,www.ntop.org,2,no_host
+www.ntop.org_opera135_macos26_client_hello.pcapng,TCP 116.203.142.127:443 192.168.1.29:49632,TLS,www.ntop.org,2,no_host

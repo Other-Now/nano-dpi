@@ -51,6 +51,7 @@ reassembly nano-dpi gets them (16 flows over the corpus: 2,529 vs 2,513).
 |---|---:|---:|---:|---:|
 | MAWI backbone, 2025-01-01, first 400 MB (36.7 s, header-only) | 5.44 M | 716k created, 600k peak live | 345 | 2.9 |
 | nDPI corpus, all 683 files (payload-heavy, DPI on every flow) | 137k | 10.3k | 901 | 1.1 |
+| same corpus, CI runner (Xeon 6975P-C, `results/ci/`) | 137k | 10.3k | 413 | 2.4 |
 
 MAWI payloads are stripped for anonymisation, so that row measures flow tracking, not DPI.
 

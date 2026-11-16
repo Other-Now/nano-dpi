@@ -1,0 +1,4 @@
+# Intel(R) Xeon(R) 6975P-C, 4 vCPU
+packets=136721 bytes=4142516956 not_ip=1057 truncated=14 fragments=1652 other_l4=2340 untracked=0
+bench packets=136721 reps=10 best_s=0.0551 median_s=0.0564 best_mpps=2.483 median_mpps=2.422 ns_per_pkt_median=412.9
+bench packets=136721 reps=10 best_s=0.0537 median_s=0.0548 best_mpps=2.546 median_mpps=2.497 ns_per_pkt_median=400.5
